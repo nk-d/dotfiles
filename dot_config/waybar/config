@@ -1,0 +1,221 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode"
+    ],
+    "modules-right": [
+        "custom/spotify",
+        "custom/separator",
+        "custom/scratchpad-indicator",
+        "custom/separator",
+        "network",
+        "custom/separator",
+        "custom/vpn",
+        "custom/separator",
+        "memory",
+        "custom/separator",
+        "cpu",
+        "custom/separator",
+        "temperature",
+        "custom/separator",
+        "custom/keyboard-layout",
+        "custom/separator",
+        "battery",
+        "custom/separator",
+        "pulseaudio",
+        "custom/separator",
+        "backlight",
+        "custom/separator",
+        "idle_inhibitor",
+        "custom/separator",
+        "clock",
+        "custom/separator",
+        "tray"
+    ],
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 15,
+            "critical": 5
+        },
+        // Connected to AC
+        "format": "{icon} {capacity}%",
+        // Not connected to AC
+        "format-discharging": "{icon} {capacity}%",
+        "format-icons": [
+            "", // Icon: battery-empty
+            "", // Icon: battery-quarter
+            "", // Icon: battery-half
+            "", // Icon: battery-three-quarters
+            ""  // Icon: battery-full
+        ]
+    },
+
+    "clock": {
+        "interval": 1,
+        "format": " {:%a %Y-%b-%d %H:%M}",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%", // Icon: microchip
+        "states": {
+          "warning": 70,
+          "critical": 90
+        }
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["", ""]
+    },
+
+    "custom/keyboard-layout": {
+      "exec": "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
+      // Interval set only as a fallback, as the value is updated by signal
+      "interval": 30,
+      "format": " {}", // Icon: keyboard
+      // Signal sent by Sway key binding (~/.config/sway/key-bindings)
+      "signal": 1, // SIGHUP
+      "tooltip": false
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": " {}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": " {essid} ({signalStrength}%)", // Icon: wifi
+        "format-ethernet": " {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
+        "format-disconnected": "⚠  Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}"
+    },
+
+    "custom/vpn":{
+        "interval": 5,
+        "tooltip-format": "{icon}",
+        "format": " {icon} ",
+        "exec": "$HOME/.local/bin/vpn_echo.sh",
+        "return-type": "json",
+        "format": "{}",
+    },
+
+    "custom/spotify": {
+        "exec": "$HOME/.local/bin/mediaplayer.py",
+        "format": " {}",
+        /* "max-length": 60, */
+        "return-type": "json",
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "exec-if": "pgrep \"spotify|ncspot\""
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\"> {}</span>", // Icon: expand-arrows-alt
+        "tooltip": true
+    },
+
+    "sway/window": {
+        "format": "{}",
+        "max-length": 120
+    },
+
+    "sway/workspaces": {
+        "all-outputs": true,
+        "disable-scroll": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1.terminals": "",
+            "2.chromium": "",
+            "3.code": "",
+            "4.chats": "",
+            "5.telegram-spotify": "",
+            "6.mail": "",
+            "7.blank": "",
+            "8.blank": "",
+            "9.blank": "",
+            "10.blank": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon} {volume}% {format_source}",
+        "format-bluetooth": "{icon}  {volume}% {format_source}",
+        "format-bluetooth-muted": " {icon}  {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "temperature": {
+      "critical-threshold": 90,
+      "interval": 5,
+      "format": "{icon} {temperatureC}°C",
+      "format-icons": [
+          "", // Icon: temperature-empty
+          "", // Icon: temperature-quarter
+          "", // Icon: temperature-half
+          "", // Icon: temperature-three-quarters
+          ""  // Icon: temperature-full
+      ],
+      "tooltip": true
+    },
+
+    "tray": {
+        "icon-size": 20,
+        "spacing": 5
+    },
+
+    "custom/scratchpad-indicator": {
+        "interval": 3,
+        "return-type": "json",
+        "exec": "swaymsg -t get_tree | jq --unbuffered --compact-output '( select(.name == \"root\") | .nodes[] | select(.name == \"__i3\") | .nodes[] | select(.name == \"__i3_scratch\") | .focus) as $scratch_ids | [..  | (.nodes? + .floating_nodes?) // empty | .[] | select(.id |IN($scratch_ids[]))] as $scratch_nodes | { text: \"\\($scratch_nodes | length)\", tooltip: $scratch_nodes | map(\"\\(.app_id // .window_properties.class) (\\(.id)): \\(.name)\") | join(\"\\n\") }'",
+        "format": "{} ﳶ",
+        "on-click": "exec swaymsg 'scratchpad show'",
+        "on-click-right": "exec swaymsg 'move scratchpad'"
+    },
+
+    "custom/separator": {
+        "format": "|",
+        "tooltip": false
+    }
+}

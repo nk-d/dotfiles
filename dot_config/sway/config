@@ -1,0 +1,371 @@
+# nkdev config for sway
+
+### Variables
+set $mod Mod4
+
+set $font_size 0
+set $cursor_size 16
+
+font pango:Hack Nerd Font $font_size
+
+default_border pixel 1
+default_floating_border pixel 1
+hide_edge_borders smart
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Your preferred terminal emulator
+set $term footclient 
+
+# Your preferred application launcher
+set $menu exec $term --app-id=launcher -e env FZF_DEFAULT_OPTS="--layout=reverse --info=inline" sway-launcher-desktop
+
+### Output configuration
+set $wallpapers_path $HOME/pictures/wallpapers/unsplash/
+output * bg `find $wallpapers_path -type f | shuf -n 1` fill
+# scale 2.0 give proper sized output for most of the wayland apps, but x ones gets pretty blurry
+# scale 1.0 give proper quality x windows, but all clients should be set for a suitable size one by one
+output eDP-1 scale 1.0 scale_filter nearest
+
+# set custom swaylock command (swaylock-effects)
+set $lock swaylock --screenshots \
+      --clock \
+      --indicator \
+      --indicator-radius 100 \
+      --indicator-thickness 7 \
+      --effect-blur 7x5 \
+      --effect-vignette 0.5:0.5 \
+      --ring-color 192330 \
+      --key-hl-color 9d79d6 \
+      --line-color 000000 \
+      --inside-color c94f6d \
+      --separator-color 000000 \
+      --grace 3 \
+      --fade-in 0.5 \
+      --effect-greyscale
+
+### Idle configuration
+exec swayidle -w \
+       timeout 180 'brightnessctl set 20%-' \
+       resume 'brightnessctl set 20%+' \
+       timeout 300 '$lock &' \
+       timeout 480 'swaymsg "output * dpms off"' \
+       resume 'swaymsg "output * dpms on"' \
+       timeout 3600 'systemctl suspend' \
+       resume 'swaymsg "output * dpms on"' \
+       before-sleep 'playerctl pause' \
+       before-sleep '$lock'
+
+### Input configuration
+
+input type:touchpad {
+  drag enabled
+  dwt enabled
+  tap enabled
+  natural_scroll enabled
+  middle_emulation enabled
+  scroll_factor 0.30
+}
+
+input type:pointer {
+  accel_profile adaptive
+  pointer_accel -0.20
+}
+
+input type:keyboard {
+  xkb_layout "us,ru"
+  xkb_options caps:ctrl_modifier,grp:win_space_toggle
+  repeat_delay 250
+  repeat_rate 50
+}
+
+### Key bindings
+#
+# Start a terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start your launcher
+bindsym $mod+d exec $menu
+
+# Drag floating windows by holding down $mod and left mouse button.
+# Resize them with right mouse button + $mod.
+# Despite the name, also works for non-floating windows.
+# Change normal to inverse to use left mouse button for resizing and right
+# mouse button for dragging.
+floating_modifier $mod normal
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $lock, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+shift+x mode "$mode_system"
+
+#
+# Moving around:
+#
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+# Or use $mod+[up|down|left|right]
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+# Ditto, with arrow keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Move the focused workspace with the same, but add Shift
+bindsym $mod+Control+Shift+$right move workspace to output right
+bindsym $mod+Control+Shift+$left move workspace to output left
+bindsym $mod+Control+Shift+$down move workspace to output down
+bindsym $mod+Control+Shift+$up move workspace to output up
+# Ditto, with arrow keys
+bindsym $mod+Control+Shift+Right move workspace to output right
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+
+#
+# Workspaces:
+#
+set $ws1 "1.terminals"
+set $ws2 "2.chromium"
+set $ws3 "3.code"
+set $ws4 "4.chats"
+set $ws5 "5.telegram-spotify"
+set $ws6 "6.mail"
+set $ws7 "7.blank"
+set $ws8 "8.blank"
+set $ws9 "9.blank"
+set $ws10 "10.blank"
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Assign applications to workspaces
+# for wayland apps: assign X $wsY
+assign [app_id="chromium"] $ws2
+assign [app_id="phpstorm"] $ws3
+assign [app_id="teams"] $ws5
+assign [app_id="skype"] $ws
+assign [app_id="telegram-desktop"] $ws6
+assign [app_id="spotify"] $ws6
+assign [app_id="thunderbird"] $ws7
+
+# for X11 apps: for_window X move window to workspace $wsY
+for_window [class="Spotify"] move window to workspace $ws9
+
+# prevent idle state at fullscreen mode for some apps
+for_window [app_id="chromium"] inhibit_idle fullscreen
+for_window [app_id="phpstorm"] inhibit_idle fullscreen
+for_window [app_id="firefox"] inhibit_idle fullscreen
+
+#
+# Layout stuff:
+#
+# You can "split" the current object of your focus with
+# $mod+b or $mod+v, for horizontal and vertical splits
+# respectively.
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+Shift+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+# Sway has a "scratchpad", which is a bag of holding for windows.
+# You can send windows there and get them back later.
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+  bindsym $left resize shrink width 30px
+  bindsym $down resize grow height 30px
+  bindsym $up resize shrink height 30px
+  bindsym $right resize grow width 30px
+
+# Ditto, with arrow keys
+  bindsym Left resize shrink width 30px
+  bindsym Down resize grow height 30px
+  bindsym Up resize shrink height 30px
+  bindsym Right resize grow width 30px
+
+# Return to default mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+# Multimedia keys
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set $(brightnessctl get | awk '{ print int(($1 + .72) * 1.4)}')
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(brightnessctl get | awk '{ print int($1 / 1.4)}')
+
+# Screenshot
+bindsym --release $mod+Print exec grim - | swappy -f -
+bindsym --release $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+
+# color defines for zenburn styled i3
+set $bg     #192330
+set $ac     #719cd6
+set $tx     #dfdfe0
+set $ia     #cdcecf
+set $rd     #c94f6d
+
+# set some nice colors      border     background  text
+client.focused              $ac        $ac         $tx
+client.unfocused            $bg        $bg         $ia
+client.focused_inactive     $bg        $bg         $ac
+client.urgent               $rd        $rd         $tx
+
+# Status Bar
+bar {
+  swaybar_command waybar
+}
+
+# Hide/unhide waybar
+bindsym $mod+Shift+s exec killall -SIGUSR1 waybar
+
+# Clamshell mode
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+bindsym $mod+x move workspace to output up
+
+# Network manager
+bindsym $mod+n exec $term --app-id=floating-editor -e nmtui-connect
+
+# Start Applications
+bindsym $mod+F1 exec --no-startup-id footclient nnn
+bindsym $mod+F2 exec --no-startup-id chromium
+bindsym $mod+F3 exec --no-startup-id firefox
+bindsym $mod+F4 exec --no-startup-id phpstorm
+
+# Clipboard manager
+bindsym $mod+c exec $term --app-id=launcher-clipboard -e env FZF_DEFAULT_OPTS="--layout=reverse --info=inline" clipboard
+
+# Notifications
+bindsym $mod+ctrl+space exec makoctl dismiss
+
+# GTK themes
+set $gnome-schema org.gnome.desktop.interface
+
+seat seat0 xcursor_theme 'Adwaita' $cursor_size
+seat seat0 hide_cursor when-typing enable
+seat seat0 hide_cursor 20000
+
+exec_always {
+  gsettings set $gnome-schema gtk-theme 'Materia'
+  gsettings set $gnome-schema icon-theme 'Materia'
+  gsettings set $gnome-schema cursor-theme 'Adwaita'
+  gsettings set org.gnome.desktop.interface cursor-size $cursor_size
+}
+
+for_window [app_id=pavucontrol] floating enable
+for_window [app_id=blueman-manager] floating enable
+for_window [app_id=org.kde.polkit-kde-authentication-agent-1] floating enable
+for_window [app_id=imv] floating enable
+for_window [app_id=imv] resize set 1980 1290
+for_window [app_id=wdisplays] floating enable
+for_window [app_id="^floating-editor$"] floating enable, sticky enable, resize set 82 ppt 64 ppt, border pixel 1
+for_window [app_id="^launcher$"] floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
+for_window [app_id="^launcher-clipboard$"] floating enable, sticky enable, resize set 60 ppt 60 ppt, border pixel 10
+for_window [title="Firefox — Sharing Indicator"] kill
+
+# Startup applications
+exec --no-startup-id foot --server
+exec --no-startup-id mako --default-timeout=10000 --layer=overlay --font 'Roboto Mono 14' --height 300 --width 500 --background-color '#192330' --border-color '#63cdcf'
+exec --no-startup-id wl-paste -t text --watch clipman store --max-items=250
+exec --no-startup-id batsignal -b -d 3 -D "systemctl suspend"
+exec --no-startup-id blueman-applet
+exec --no-startup-id gammastep-indicator
+exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id kanshi
+
+for_window [class="^.*"] border pixel 2
+
+# Tag xwayland windows
+for_window [shell="xwayland"] title_format "<span>[X] %title</span>"
+
+include /etc/sway/config.d/*

@@ -1,0 +1,14 @@
+# Inserts a blank line between shell prompts
+add_newline = false
+
+[gcloud]
+disabled = true
+
+[env_var]
+variable = "NNNLVL"
+format = "[n³](yellow)"
+disabled = false
+
+[kubernetes]
+format = '[⛵$context](green) '
+disabled = true
