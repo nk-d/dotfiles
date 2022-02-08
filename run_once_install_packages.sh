@@ -92,7 +92,9 @@ install_package "curl"
 install_package "lazydocker"
 install_package "lazygit"
 install_package "phpstorm"
+install_package "phpstorm-jre"
 install_package "webstorm"
+install_package "webstorm-jre"
 
 print_in_purple "Communication\n"
 
@@ -257,9 +259,5 @@ print_in_purple "NPM packages\n"
 
 install_npm_package "typescript"
 install_npm_package "typescript-language-server"
-
-print_in_purple "GH plugins\n"
-
-install_gh_plugin "dlvhdr/gh-prs"
 
 clean_up_cache

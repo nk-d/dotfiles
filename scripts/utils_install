@@ -49,13 +49,6 @@ update_fish_plugins() {
 	execute "fish -c \"fisher update\"" "Update fish plugins"
 }
 
-install_go_package() {
-  declare -r PACKAGEPATH="$1"
-  declare -r PACKAGENAME="$2"
-
-  execute "go install $PACKAGEPATH" "$PACKAGENAME"
-}
-
 install_yarn_package() {
   declare -r PACKAGEPATH="$1"
   declare -r PACKAGENAME="$2"
@@ -67,23 +60,6 @@ install_npm_package() {
   declare -r PACKAGENAME="$1"
 
   execute "npm install -g $PACKAGENAME" "$PACKAGENAME"
-}
-
-install_pip_package() {
-  declare -r PACKAGENAME="$1"
-
-  execute "pip install --upgrade $PACKAGENAME" "$PACKAGENAME"
-}
-
-install_gh_plugin() {
-  declare -r PLUGIN="$1"
-  declare -r INSTALLED_PLUGINS=$(gh extension list)
-
-  if ! echo $INSTALLED_PLUGINS | grep -q $PLUGIN; then
-    execute "gh extension install $PLUGIN" "$PLUGIN"
-  else
-    print_success "$PLUGIN"
-  fi
 }
 
 package_is_installed() {

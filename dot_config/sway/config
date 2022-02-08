@@ -285,12 +285,12 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(brightnes
 bindsym --release $mod+Print exec grim - | swappy -f -
 bindsym --release $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
 
-# color defines for zenburn styled i3
-set $bg     #192330
-set $ac     #719cd6
-set $tx     #dfdfe0
-set $ia     #cdcecf
-set $rd     #c94f6d
+# color defines for solarized styled i3
+set $bg     #fdf6e3
+set $ac     #002b36
+set $tx     #586e75
+set $ia     #657b83
+set $rd     #d33682
 
 # set some nice colors      border     background  text
 client.focused              $ac        $ac         $tx

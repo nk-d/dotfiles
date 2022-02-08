@@ -23,9 +23,6 @@ execute "sudo chgrp pcap /usr/sbin/tcpdump && sudo chmod 750 /usr/sbin/tcpdump \
 execute "(getent group vboxusers | grep $USER) || sudo usermod -aG vboxusers $USER" \
 	"User added to vboxusers group (logout required!)"
 
-executo "export _JAVA_AWT_WM_NONREPARENTING='1 phpstorm'" \
-	"Added variable for JetBrains apps"
-
 if [ "$SHELL" != "/usr/bin/fish" ]; then
 	chsh -s /usr/bin/fish
 	print_result $? "Set shell to fish"
