@@ -46,6 +46,7 @@ print_in_purple "Infrastructure\n"
 
 install_package "docker-compose"
 install_package "globalprotect-openconnect-git"
+install_package "1password"
 
 print_in_purple "Languages\n"
 
@@ -102,6 +103,7 @@ install_package "rambox-bin"
 install_package "thunderbird"
 install_package "teams"
 install_package "telegram-desktop"
+install_package "skypeforlinux-stable-bin"
 
 print_in_purple "Multimedia\n"
 
@@ -232,6 +234,7 @@ install_package "pipewire-media-session"
 install_package "playerctl"
 install_package "polkit-kde-agent"
 install_package "pulsemixer"
+install_package "pipewire-pulse"
 install_package "qt5-wayland"
 install_package "slurp"
 install_package "sof-firmware"
