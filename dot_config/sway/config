@@ -25,8 +25,9 @@ set $term footclient
 set $menu exec $term --app-id=launcher -e env FZF_DEFAULT_OPTS="--layout=reverse --info=inline" sway-launcher-desktop
 
 ### Output configuration
-set $wallpapers_path $HOME/pictures/wallpapers/unsplash/
-output * bg `find $wallpapers_path -type f | shuf -n 1` fill
+# set $wallpapers_path $HOME/pictures/wallpapers/unsplash/
+# output * bg `find $wallpapers_path -type f | shuf -n 1` fill
+output * bg $HOME/pictures/wallpapers/main.jpg fill
 # scale 2.0 give proper sized output for most of the wayland apps, but x ones gets pretty blurry
 # scale 1.0 give proper quality x windows, but all clients should be set for a suitable size one by one
 output eDP-1 scale 1.0 scale_filter nearest
@@ -332,7 +333,7 @@ bindsym $mod+ctrl+space exec makoctl dismiss
 set $gnome-schema org.gnome.desktop.interface
 
 seat seat0 xcursor_theme 'Adwaita' $cursor_size
-seat seat0 hide_cursor when-typing enable
+# seat seat0 hide_cursor when-typing enable
 seat seat0 hide_cursor 20000
 
 exec_always {
