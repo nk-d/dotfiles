@@ -196,13 +196,13 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Assign applications to workspaces
 # for wayland apps: assign X $wsY
-assign [app_id="chromium"] $ws2
+assign [app_id="firefox"] $ws2
 assign [app_id="phpstorm"] $ws3
 assign [app_id="teams"] $ws4
 assign [app_id="skypeforlinux"] $ws4
 assign [app_id="telegram-desktop"] $ws5
 assign [app_id="spotify"] $ws5
-assign [app_id="thunderbird"] $ws7
+assign [app_id="thunderbird"] $ws6
 
 # for X11 apps: for_window X move window to workspace $wsY
 # for_window [class="Spotify"] move window to workspace $ws5
