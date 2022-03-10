@@ -283,8 +283,8 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set $(brightnessc
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $(brightnessctl get | awk '{ print int($1 / 1.4)}')
 
 # Screenshot
-bindsym --release $mod+Print exec grim - | swappy -f -
-bindsym --release $mod+Shift+Print exec grim -g "$(slurp)" - | swappy -f -
+bindsym --release $mod+p exec grim - | swappy -f -
+bindsym --release $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 
 # color defines for solarized styled i3
 set $bg     #fdf6e3
