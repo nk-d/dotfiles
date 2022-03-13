@@ -26,13 +26,6 @@ execute "(getent group vboxusers | grep $USER) || sudo usermod -aG vboxusers $US
 execute "echo \"options hid_apple fnmode=2\" | sudo tee /etc/modprobe.d/hid_apple.conf" \
 	"Added fnmode for keyboard (please run \"sudo mkinitcpio -P\")"
 
-if [ "$SHELL" != "/usr/bin/fish" ]; then
-	chsh -s /usr/bin/fish
-	print_result $? "Set shell to fish"
-fi
-
-execute "if [ ! -d $HOME/.config/nvim ]; then git clone git@github.com:joelazar/nvim-config.git $HOME/.config/nvim; fi;" "Clone neovim config repo"
-
 execute "sudo timedatectl set-ntp true" "Turn on ntp"
 
 execute "sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket" "Turn off rfkill"
