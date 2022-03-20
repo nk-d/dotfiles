@@ -22,7 +22,7 @@ update
 
 print_in_purple "Browsers\n"
 
-install_package "google-chrome"
+install_package "firefox"
 
 print_in_purple "Basics\n"
 
