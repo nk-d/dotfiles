@@ -17,7 +17,7 @@ set $mod Mod4
 
 set $font_size 0
 set $cursor_size 16
-set $script $HOME/.config/sway
+set $script $HOME/.local/bin
 set $border_width 3
 set $cursor_theme "Adwaita"
 
