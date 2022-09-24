@@ -56,6 +56,7 @@ install_package "go"
 install_package "nodejs"
 install_package "rust"
 install_package "php"
+install_package "flutter"
 
 print_in_purple "Package managers\n"
 
