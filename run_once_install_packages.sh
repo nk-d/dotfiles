@@ -151,10 +151,19 @@ install_package "ttf-roboto-mono"
 print_in_purple "Shell\n"
 
 install_package "alacritty"
+install_package "fish"
+install_package "fisher"
 install_package "foot"
 install_package "hyperfine"
 install_package "starship"
 install_package "theme.sh"
+
+print_in_purple "Fish plugins\n"
+
+install_fish_plugin "jorgebucaran/replay.fish" "replay"
+install_fish_plugin "franciscolourenco/done" "done"
+install_fish_plugin "danhper/fish-ssh-agent" "fish-ssh-agent"
+install_fish_plugin "PatrickF1/fzf.fish" "fzf.fish"
 
 print_in_purple "Utilities\n"
 
