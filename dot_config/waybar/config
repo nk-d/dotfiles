@@ -28,7 +28,6 @@
         "custom/separator",
         "clock",
         "custom/separator",
-        "idle_inhibitor",
         "tray"
     ],
 
@@ -76,7 +75,7 @@
         "on-click": "playerctl play-pause",
         "on-scroll-up": "playerctl next",
         "on-scroll-down": "playerctl previous",
-        "exec-if": "pgrep \"spotify|ncspot\""
+        "exec-if": "pgrep \"spotify\""
     },
 
     "custom/scratchpad-indicator": {
@@ -170,14 +169,6 @@
         "interval": 1,
         "format": "{:%a %Y-%b-%d %H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
     },
 
     "tray": {

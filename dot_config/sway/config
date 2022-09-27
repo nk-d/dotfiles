@@ -27,7 +27,7 @@ set $up k
 set $right l
 
 set $term footclient
-set $menu exec $term --app-id=launcher -e env FZF_DEFAULT_OPTS="--layout=reverse --info=inline" sway-launcher-desktop
+set $menu exec rofi -show run
 
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
 
@@ -40,7 +40,7 @@ set $mode_system System (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
 output * bg $HOME/pictures/wallpapers/main.jpg fill
 # scale 2.0 give proper sized output for most of the wayland apps, but x ones gets pretty blurry
 # scale 1.0 give proper quality x windows, but all clients should be set for a suitable size one by one
-output eDP-1 scale 1.0 scale_filter nearest
+# output DP-3 scale 1.0 scale_filter nearest
 
 # set custom swaylock command (swaylock-effects)
 set $lock swaylock --screenshots \
@@ -241,7 +241,7 @@ bindsym --to-code {
 }
 
 # Screenshot
-bindsym --release {
+bindsym --to-code {
   $mod+p exec grim - | swappy -f -
   $mod+Shift+p exec grim -g "$(slurp)" - | swappy -f -
 }
@@ -441,8 +441,6 @@ for_window [app_id=imv] resize set 1980 1290
 for_window [app_id=wdisplays] floating enable
 for_window [app_id="^floating-editor$"] \
   floating enable, sticky enable, resize set 82 ppt 64 ppt, border pixel 1
-for_window [app_id="^launcher$"] \
-  floating enable, sticky enable, resize set 30 ppt 60 ppt, border pixel 10
 for_window [app_id="^launcher-clipboard$"] \
   floating enable, sticky enable, resize set 60 ppt 60 ppt, border pixel 10
 for_window [app_id="firefox" title="^Picture-in-Picture$"] \

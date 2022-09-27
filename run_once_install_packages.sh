@@ -45,7 +45,6 @@ install_package "zoxide"
 print_in_purple "Infrastructure\n"
 
 install_package "docker-compose"
-install_package "globalprotect-openconnect-git"
 install_package "1password"
 
 print_in_purple "Languages\n"
@@ -56,7 +55,6 @@ install_package "go"
 install_package "nodejs"
 install_package "rust"
 install_package "php"
-install_package "flutter"
 
 print_in_purple "Package managers\n"
 
@@ -110,7 +108,6 @@ print_in_purple "Multimedia\n"
 
 install_package "imv"
 install_package "mpv"
-install_package "ncspot"
 install_package "spotify"
 install_package "xournalpp"
 
@@ -234,7 +231,7 @@ install_package "slurp"
 install_package "sof-firmware"
 install_package "swappy"
 install_package "sway"
-install_package "sway-launcher-desktop"
+install_package "swaybg"
 install_package "swayidle"
 install_package "swaylock-effects-git"
 install_package "tigervnc"
