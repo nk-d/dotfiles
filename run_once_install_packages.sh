@@ -147,11 +147,9 @@ install_package "ttf-roboto-mono"
 
 print_in_purple "Shell\n"
 
-install_package "alacritty"
+install_package "foot"
 install_package "fish"
 install_package "fisher"
-install_package "foot"
-install_package "hyperfine"
 install_package "starship"
 install_package "theme.sh"
 
