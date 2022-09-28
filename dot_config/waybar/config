@@ -6,10 +6,10 @@
         "sway/workspaces",
         "sway/mode"
     ],
-    "modules-center": [],
+    "modules-center": [
+        "custom/music"
+    ],
     "modules-right": [
-        "custom/music",
-        "custom/separator",
         "custom/scratchpad-indicator",
         "custom/separator",
         "network",
@@ -39,22 +39,6 @@
     "sway/workspaces": {
         "all-outputs": true,
         "disable-scroll": true,
-        "format": "{icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "6": "",
-            "7": "",
-            "8": "",
-            "9": "",
-            "10": "",
-            "urgent": "",
-            "focused": "",
-            "default": ""
-        }
     },
 
     "sway/mode": {
@@ -69,8 +53,8 @@
 
     "custom/music": {
         "exec": "$HOME/.local/bin/mediaplayer.py",
-        "format": " {}",
-        /* "max-length": 60, */
+        "format": " {}",
+        "max-length": 40,
         "return-type": "json",
         "on-click": "playerctl play-pause",
         "on-scroll-up": "playerctl next",

@@ -306,6 +306,7 @@ bindsym {
   # You can send windows there and get them back later.
 
   # Move the currently focused window to the scratchpad
+  # ""$mod+shift+space" move back from scratchpad
   $mod+Shift+minus move scratchpad
 
   # Show the next scratchpad window or hide the focused scratchpad window.
