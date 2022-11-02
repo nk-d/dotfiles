@@ -27,7 +27,7 @@ set $up k
 set $right l
 
 set $term footclient
-set $menu exec rofi -show run
+set $menu exec wofi --show run
 
 set $mode_system System (l) lock, (s) suspend, (r) reboot, (Shift+s) shutdown
 

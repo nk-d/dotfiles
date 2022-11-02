@@ -22,6 +22,14 @@
   padding: 0;
 }
 
+button {
+  all: unset;
+}
+
+label {
+  all: unset;
+}
+
 /* The whole bar */
 #waybar {
   background: #002b36;
@@ -125,6 +133,7 @@
   background-color: transparent;
   color: #eee8d5;
   font-size: 15px;
+  padding: 0 20px;
 }
 
 #workspaces button:hover {
