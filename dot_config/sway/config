@@ -15,7 +15,7 @@
 #
 set $mod Mod4
 
-set $font_size 0
+set $font_size 16
 set $cursor_size 16
 set $script $HOME/.local/bin
 set $border_width 3
@@ -480,6 +480,7 @@ exec {
   kanshi
   blueman-applet
   $script/enhance.lua
+  safeeyes
 }
 
 exec "systemctl --user import-environment; systemctl --user start sway-session.target"

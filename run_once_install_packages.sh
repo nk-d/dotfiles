@@ -196,6 +196,7 @@ install_package "unzip"
 install_package "viu"
 install_package "wireguard-dkms"
 install_package "wireguard-tools"
+install_package "safeeyes"
 
 print_in_purple "Sway\n"
 
